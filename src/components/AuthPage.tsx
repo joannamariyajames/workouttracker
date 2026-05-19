@@ -26,7 +26,7 @@ export function AuthPage({ onLogin }: AuthPageProps) {
 
     try {
       if (mode === 'signup') {
-        const res = await fetch('/api/auth/register', {
+        const res = await fetch('https://workout-backend-q1gc.onrender.com/api/auth/register', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email, dob }),
@@ -38,7 +38,7 @@ export function AuthPage({ onLogin }: AuthPageProps) {
           setError(data.error || 'Signup failed');
         }
       } else if (mode === 'verify') {
-        const res = await fetch('/api/auth/verify', {
+        const res = await fetch('https://workout-backend-q1gc.onrender.com/api/auth/register', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email, code }),
@@ -50,7 +50,7 @@ export function AuthPage({ onLogin }: AuthPageProps) {
           setError(data.error || 'Verification failed');
         }
       } else {
-        const res = await fetch('/api/auth/login', {
+        const res = await fetch('https://workout-backend-q1gc.onrender.com/api/auth/register', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email, dob }),
