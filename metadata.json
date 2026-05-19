@@ -1,0 +1,6 @@
+{
+  "name": "Workout Tracker",
+  "description": "The ultimate training preparation tracker. Monitor your swimming, cycling, running, gym sessions, and biometrics in a high-performance athlete dashboard.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

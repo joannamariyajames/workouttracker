@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Anton", "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  /* Stealth Theme (Default Dark) */
+  --color-stealth-bg: #0f1115;
+  --color-stealth-card: #1a1d23;
+  --color-stealth-accent: #22c55e;
+  --color-stealth-text: #f8fafc;
+
+  /* Elite Theme (Professional Blue) */
+  --color-elite-bg: #f8fafc;
+  --color-elite-card: #ffffff;
+  --color-elite-accent: #2563eb;
+  --color-elite-text: #0f172a;
+
+  /* Endurance Theme (High Contrast) */
+  --color-endurance-bg: #ffffff;
+  --color-endurance-card: #f1f5f9;
+  --color-endurance-accent: #f97316;
+  --color-endurance-text: #000000;
+
+  /* Brutalist Theme (Bold Typography) */
+  --color-brutalist-bg: #0a0a0a;
+  --color-brutalist-card: #0a0a0a;
+  --color-brutalist-accent: #ffffff;
+  --color-brutalist-text: #ffffff;
+  --color-brutalist-border: rgba(255, 255, 255, 0.2);
+}
+
+@layer base {
+  body {
+    @apply transition-colors duration-300;
+  }
+}
+
+.theme-stealth {
+  background-color: var(--color-stealth-bg);
+  color: var(--color-stealth-text);
+  --accent: var(--color-stealth-accent);
+  --card: var(--color-stealth-card);
+}
+
+.theme-elite {
+  background-color: var(--color-elite-bg);
+  color: var(--color-elite-text);
+  --accent: var(--color-elite-accent);
+  --card: var(--color-elite-card);
+}
+
+.theme-endurance {
+  background-color: var(--color-endurance-bg);
+  color: var(--color-endurance-text);
+  --accent: var(--color-endurance-accent);
+  --card: var(--color-endurance-card);
+}
+
+.theme-brutalist {
+  background-color: var(--color-brutalist-bg);
+  color: var(--color-brutalist-text);
+  --accent: var(--color-brutalist-accent);
+  --card: var(--color-brutalist-card);
+  --border: var(--color-brutalist-border);
+}
+
+.theme-brutalist .brutal-card {
+  border: 1px solid var(--border);
+  border-radius: 0;
+}
+
+.theme-brutalist .brutal-title {
+  @apply font-black tracking-tighter uppercase leading-none;
+}
+
+.theme-brutalist .brutal-number {
+  @apply font-black leading-none tracking-tighter;
+}

@@ -1,0 +1,58 @@
+{
+  "entities": {
+    "Workout": {
+      "title": "Training Session",
+      "description": "A single training session for Ironman preparation.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "The UID of the athlete." },
+        "type": { "type": "string", "enum": ["swim", "bike", "run"], "description": "The sport type." },
+        "date": { "type": "string", "format": "date-time", "description": "When the workout occurred." },
+        "distance": { "type": "number", "description": "Distance in km (meters for swim)." },
+        "duration": { "type": "number", "description": "Duration in minutes." },
+        "intensity": { "type": "number", "description": "RPE (1-10)." },
+        "notes": { "type": "string", "description": "Session details." },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "type", "date", "distance", "duration"]
+    },
+    "Biometrics": {
+      "title": "Biometrics Log",
+      "description": "Weight and other body metrics.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "date": { "type": "string", "format": "date-time" },
+        "weight": { "type": "number", "description": "Body weight in kg." },
+        "bodyFat": { "type": "number", "description": "Body fat percentage (optional)." },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "date", "weight"]
+    },
+    "Settings": {
+      "title": "User Settings",
+      "description": "Preferences like theme.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "theme": { "type": "string", "enum": ["stealth", "elite", "endurance"] },
+        "units": { "type": "string", "enum": ["metric", "imperial"] }
+      },
+      "required": ["userId", "theme"]
+    }
+  },
+  "firestore": {
+    "/workouts/{workoutId}": {
+      "schema": "Workout",
+      "description": "Collection of all training sessions."
+    },
+    "/biometrics/{logId}": {
+      "schema": "Biometrics",
+      "description": "Collection of biometric logs."
+    },
+    "/settings/{userId}": {
+      "schema": "Settings",
+      "description": "User preferences."
+    }
+  }
+}
