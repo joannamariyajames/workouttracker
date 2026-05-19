@@ -48,7 +48,6 @@ app.post("/api/auth/login", (req, res) => {
   const user = users.get(email);
 
   if (user && user.dob === dob) {
-    if (!user.verified) return res.status(401).json({ error: "Email not verified" });
     return res.json({ success: true, user });
   }
 
