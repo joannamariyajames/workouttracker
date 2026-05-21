@@ -30,72 +30,82 @@ export function useData() {
   const [workouts, setWorkouts] = useState<Workout[]>([]);
   const [weightLogs, setWeightLogs] = useState<WeightLog[]>([]);
 
-  const [gymRoutines, setGymRoutines] = useState<GymRoutine[]>([
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-    "Sunday"
-  ].map(day => ({
-    id: day,
-    day,
-    title: "",
-    description: ""
-  })));
+  const [gymRoutines, setGymRoutines] = useState<GymRoutine[]>(
+    ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"].map(day => ({
+      id: day,
+      day,
+      title: "",
+      description: ""
+    }))
+  );
 
   // LOAD WORKOUTS
   useEffect(() => {
+    fetchWorkouts();
+  }, []);
 
-    async function loadWorkouts() {
+  const fetchWorkouts = async () => {
 
-      const {
-        data: { user }
-      } = await supabase.auth.getUser();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
 
-      if (!user) return;
+    if (!user) return;
 
-      const { data, error } = await supabase
-        .from('workouts')
-        .select('*')
-        .eq('user_id', user.id)
-        .order('created_at', { ascending: false });
+    const { data, error } = await supabase
+      .from('workouts')
+      .select('*')
+      .eq('user_id', user.id)
+      .order('created_at', { ascending: false });
 
-      if (!error && data) {
-        setWorkouts(data as Workout[]);
-      }
+    if (error) {
+      console.error(error);
+      return;
     }
 
-    loadWorkouts();
-
-  }, []);
+    if (data) {
+      setWorkouts(data as Workout[]);
+    }
+  };
 
   // ADD WORKOUT
   const addWorkout = async (workout: Omit<Workout, 'id'>) => {
 
     const {
-      data: { user }
+      data: { user },
     } = await supabase.auth.getUser();
 
-    if (!user) return;
-
-    const workoutData = {
-      ...workout,
-      user_id: user.id,
-    };
-
-    const { data, error } = await supabase
-      .from('workouts')
-      .insert([workoutData])
-      .select();
-
-    if (!error && data) {
-      setWorkouts(prev => [...(data as Workout[]), ...prev]);
+    if (!user) {
+      alert('User not logged in');
+      return;
     }
+
+    const { error } = await supabase
+      .from('workouts')
+      .insert([
+        {
+          user_id: user.id,
+          type: workout.type,
+          date: workout.date,
+          distance: workout.distance,
+          duration: workout.duration,
+          notes: workout.notes,
+          intensity: workout.intensity,
+          isPlanned: workout.isPlanned,
+          created_at: new Date().toISOString(),
+        },
+      ]);
+
+    if (error) {
+      console.error(error);
+      alert(error.message);
+      return;
+    }
+
+    fetchWorkouts();
   };
 
-  // GYM ROUTINES
+  // UPDATE GYM ROUTINE
   const updateGymRoutine = (
     day: string,
     title: string,
@@ -111,7 +121,7 @@ export function useData() {
     );
   };
 
-  // WEIGHT LOGS
+  // ADD WEIGHT LOG
   const addWeightLog = (log: Omit<WeightLog, 'id'>) => {
 
     const newLog = {
