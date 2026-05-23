@@ -9,7 +9,7 @@ export interface Workout {
   duration: number;
   notes?: string;
   intensity: number;
-  isPlanned?: boolean;
+  isplanned?: boolean;
 }
 
 export interface WeightLog {
@@ -91,7 +91,7 @@ export function useData() {
           duration: workout.duration,
           notes: workout.notes,
           intensity: workout.intensity,
-          isplanned: workout.isPlanned,
+          isplanned: workout.isplanned,
           created_at: new Date().toISOString(),
         },
       ]);
