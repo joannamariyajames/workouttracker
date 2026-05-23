@@ -91,7 +91,7 @@ export function useData() {
           duration: workout.duration,
           notes: workout.notes,
           intensity: workout.intensity,
-          isPlanned: workout.isPlanned,
+          isplanned: workout.isPlanned,
           created_at: new Date().toISOString(),
         },
       ]);
